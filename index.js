@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Middleware Logging
 app.use((req, res, next) => {
-  console.start = Date.now()
+  const start = Date.now()
 
   res.on('finish', () => {
     const duration = Date.now() - start
