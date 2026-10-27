@@ -48,7 +48,7 @@ function errorResponse(res, message, status, details = null){
 }
 
 // Joi Validation Schema
-const diodataSchema = Joi.object({
+const biodataSchema = Joi.object({
   id: Joi.number().integer().positive(),
   nama: Joi.string().trim().min(2).max(100).required(),
   nim: Joi.string().trim().min(5).max(20).required(),
@@ -110,7 +110,7 @@ app.get('/', async (req, res) => {
   return successResponse(res, 'Data berhasil diambil', result.rows)
 })
 
-app.post('/biodata', validateBody(diodataSchema), async (req, res) => {
+app.post('/biodata', validateBody(biodataSchema), async (req, res) => {
   const {id, nama, nim, kelas} = req.body
   const result = await pool.query(
     `INSERT INTO biodata (id, nama, nim, kelas) VALUES ($1, $2, $3, $4) RETURNING *`
