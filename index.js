@@ -64,7 +64,7 @@ function validateBody(schema) {
   return (req, res, next) => {
     const { error, value } = schema.validate(req.body, {
       abortEarly: false, convert: true, allowUnknown: false
-    })
+    });
 
     if (error) {
       return errorResponse(
@@ -86,7 +86,7 @@ function validateBody(schema) {
 // Middleware untuk Validation parameter id
 function validateParams(schema) {
   return (req, res, next) => {
-    const { error, value } = schema.validate(req.params)
+    const { error, value } = schema.validate(req.params);
 
     if (error) {
       return errorResponse(
@@ -104,3 +104,8 @@ function validateParams(schema) {
     next()
   }
 }
+
+app.get('/', async (req, res) => {
+  const result = await pool.query('SELECT * FROM biodata ORDER BY id')
+  return successResponse(res, 'Data berhasil diambil', result.rows)
+})
